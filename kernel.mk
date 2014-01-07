@@ -1,4 +1,4 @@
-.PHONY: kernel cleankernel
+.PHONY: kernel cleankernel kernelconfig
 
 KERNEL_DIR := kernel
 KERNEL_UIMAGE := $(KERNEL_DIR)/arch/arm/boot/uImage
@@ -6,9 +6,13 @@ PVRSGX_MODULE := out/target/product/pcm049/target/kbuild/pvrsrvkm_sgx540_120.ko
 COMPAT_WL12XX_MODULE := hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko
 KERNEL_MODULES := $(PVRSGX_MODULE) $(COMPAT_WL12XX_MODULE)
 
+kernelconfig:
+	cd $(KERNEL_DIR) && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm menuconfig
+
 $(KERNEL_DIR)/.config:
 	cd $(KERNEL_DIR) && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm pcm049_defconfig
+	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5012_defconfig
 
 $(KERNEL_UIMAGE): $(KERNEL_DIR)/.config
 	cd $(KERNEL_DIR) && \

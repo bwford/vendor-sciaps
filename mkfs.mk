@@ -15,6 +15,7 @@ mkrootfs:
 	cp hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(STAGING_DIR)/system/lib/modules
 	cp hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(STAGING_DIR)/system/lib/modules
 	cp hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(STAGING_DIR)/system/lib/modules
+	cp hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(STAGING_DIR)/system/lib/modules
 	cp $(STAGING_DIR)/system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin $(STAGING_DIR)/system/etc/firmware/ti-connectivity/wl1271-nvs.bin
 
 $(ROOTFS_TAR):
