@@ -17,7 +17,6 @@ LIBSHOME_APK := $(LOCAL_PATH)/$(LOCAL_SRC_FILES)
 include $(BUILD_PREBUILT)
 
 
-$(warning $(LIBSHOME_APK))
 $(LIBSHOME_APK):
 	curl -o $@ http://jenkins.sciaps.local/job/LIBSHomeApp/lastSuccessfulBuild/artifact/app/build/apk/app-release-unsigned.apk
 

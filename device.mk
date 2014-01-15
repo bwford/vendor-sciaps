@@ -2,4 +2,5 @@
 
 PRODUCT_PACKAGES += \
 	busybox \
-	LIBSHome
+	LIBSHome \
+	LIBSAlloyMatch
