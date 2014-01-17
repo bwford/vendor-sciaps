@@ -18,6 +18,6 @@ include $(BUILD_PREBUILT)
 
 
 $(LIBSHOME_APK):
-	curl -o $@ http://jenkins.sciaps.local/job/LIBSHomeApp/lastSuccessfulBuild/artifact/app/build/apk/app-release-unsigned.apk
+	curl -o $@ http://jenkins.sciaps.local/job/LIBSHomeApp/lastSuccessfulBuild/artifact/app/build/apk/app-debug-unaligned.apk
 
 

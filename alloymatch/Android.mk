@@ -16,6 +16,5 @@ include $(BUILD_PREBUILT)
 
 
 $(THE_APK):
-	curl -o $@ http://jenkins.sciaps.local/job/LIBSAlloyMatch/lastSuccessfulBuild/artifact/SciapsLIBS/build/apk/SciapsLIBS-nativeFlavor-release-unsigned.apk
-
+	curl -o $@ http://jenkins.sciaps.local/job/LIBSAlloyMatch/lastSuccessfulBuild/artifact/SciapsLIBS/build/apk/SciapsLIBS-nativeFlavor-debug-unaligned.apk
 
