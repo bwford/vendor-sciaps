@@ -1,10 +1,11 @@
-.PHONY: mkrootfs cleanrootfs
+.PHONY: cleanrootfs
 
 STAGING_DIR := out/target/product/pcm049/rootfs_staging
+STAGING_DIR_TS := out/target/product/pcm049/stagingts
 ROOTFS_TAR := rootfs.tar.bz2
 ROOT_UBI_IMG := root.ubi
 
-mkrootfs:
+$(STAGING_DIR_TS):
 	mkdir -p $(STAGING_DIR)
 	mkdir -p $(STAGING_DIR)/system/lib/modules
 	cp -r out/target/product/pcm049/root/* $(STAGING_DIR)
@@ -17,12 +18,14 @@ mkrootfs:
 	cp hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(STAGING_DIR)/system/lib/modules
 	cp hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(STAGING_DIR)/system/lib/modules
 	cp $(STAGING_DIR)/system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin $(STAGING_DIR)/system/etc/firmware/ti-connectivity/wl1271-nvs.bin
+	touch $(STAGING_DIR_TS)
 
-$(ROOTFS_TAR):
+$(ROOTFS_TAR): $(STAGING_DIR_TS)
 	build/tools/mktarball.sh out/host/linux-x86/bin/fs_get_stats $(STAGING_DIR) . rootfs.tar $(ROOTFS_TAR)
 
 cleanrootfs:
 	rm -rf $(STAGING_DIR)
+	rm -f $(STAGING_DIR_TS)
 
 
 $(ROOT_UBI_IMG) root.ubifs: $(ROOTFS_TAR)

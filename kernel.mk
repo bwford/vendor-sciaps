@@ -16,7 +16,7 @@ $(KERNEL_DIR)/.config:
 
 $(KERNEL_UIMAGE): $(KERNEL_DIR)/.config
 	cd $(KERNEL_DIR) && \
-    make CROSS_COMPILE=arm-eabi- ARCH=arm uImage -j8
+	make CROSS_COMPILE=arm-eabi- ARCH=arm uImage -j8
 
 sgx/eurasia_km/INSTALL:
 	mkdir -p sgx
@@ -43,3 +43,4 @@ kernel: $(KERNEL_UIMAGE) $(KERNEL_MODULES)
 
 cleankernel:
 	rm -f $(KERNEL_UIMAGE) $(KERNEL_MODULES)
+	cd $(KERNEL_DIR) && make CROSS_COMPILE=arm-eabi- ARCH=arm clean
