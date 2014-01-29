@@ -1,4 +1,4 @@
-.PHONY: cleanrootfs
+.PHONY: cleanrootfs mkrootfs
 
 STAGING_DIR := out/target/product/pcm049/rootfs_staging
 STAGING_DIR_TS := out/target/product/pcm049/stagingts
@@ -23,14 +23,16 @@ $(STAGING_DIR_TS):
 $(ROOTFS_TAR): $(STAGING_DIR_TS)
 	build/tools/mktarball.sh out/host/linux-x86/bin/fs_get_stats $(STAGING_DIR) . rootfs.tar $(ROOTFS_TAR)
 
+mkrootfs: $(STAGING_DIR_TS)
+
 cleanrootfs:
 	rm -rf $(STAGING_DIR)
 	rm -f $(STAGING_DIR_TS)
 
 
 $(ROOT_UBI_IMG) root.ubifs: $(ROOTFS_TAR)
-	rm -rf /tmp/rootfsubi
-	mkdir -p /tmp/rootfsubi
-	cd /tmp/rootfsubi && tar -xpf $(abspath $(ROOTFS_TAR))
-	mkfs.ubifs -r /tmp/rootfsubi -m 2048 -c 3888 -e 126976 -o root.ubifs
+	$(eval TMP := $(shell mktemp -d))
+	cd $(TMP) && tar -xpf $(abspath $(ROOTFS_TAR))
+	mkfs.ubifs -r $(TMP) -m 2048 -c 3888 -e 126976 -o root.ubifs
 	ubinize -s 2048 -O 2048 -p 131072 -m 2048 -o $(ROOT_UBI_IMG) vendor/sciaps/ini-file
+	rm -rf $(TMP)

@@ -3,4 +3,6 @@
 PRODUCT_PACKAGES += \
 	busybox \
 	LIBSHome \
-	LIBSAlloyMatch
+	LIBSAlloyMatch \
+	LIBSSettings \
+	CMFileManager
