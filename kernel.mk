@@ -2,7 +2,7 @@
 
 KERNEL_DIR := kernel
 KERNEL_UIMAGE := $(KERNEL_DIR)/arch/arm/boot/uImage
-PVRSGX_MODULE := out/target/product/pcm049/target/kbuild/pvrsrvkm_sgx540_120.ko
+PVRSGX_MODULE := out/target/product/$(TARGET_DEVICE)/target/kbuild/pvrsrvkm_sgx540_120.ko
 COMPAT_WL12XX_MODULE := hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko
 KERNEL_MODULES := $(PVRSGX_MODULE) $(COMPAT_WL12XX_MODULE)
 
