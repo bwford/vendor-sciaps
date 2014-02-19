@@ -2,12 +2,15 @@
 
 KERNEL_UIMAGE := $(KERNEL_DIR)/arch/arm/boot/uImage
 PVRSGX_MODULE := out/target/product/$(TARGET_DEVICE)/target/kbuild/pvrsrvkm_sgx540_120.ko
-WIRELESS_MODULES := $(addprefix $(KERNEL_DIR), \
+
+WIFI_DRIVERS := \
 	/net/wireless/cfg80211.ko \
 	/net/wireless/mac80211.ko \
 	/drivers/net/wireless/wl12xx/wl12xx.ko \
-	/drivers/net/wireless/wl12xx/wl12xx_sdio.ko \
-	)
+	/drivers/net/wireless/wl12xx/wl12xx_sdio.ko
+
+KERNEL_WIRELESS_MODULES := $(addprefix $(KERNEL_DIR),$(WIFI_DRIVERS))
+
 KERNEL_MODULES := $(PVRSGX_MODULE)
 
 kernelconfig:
@@ -22,7 +25,7 @@ $(KERNEL_UIMAGE): $(KERNEL_DIR)/.config
 	cd $(KERNEL_DIR) && \
 	make CROSS_COMPILE=arm-eabi- ARCH=arm uImage -j8
 
-kernelmodules $(WIRELESS_MODULES): $(KERNEL_DIR)/.config
+kernelmodules $(KERNEL_WIRELESS_MODULES): $(KERNEL_DIR)/.config
 	cd $(KERNEL_DIR) && \
 	make CROSS_COMPILE=arm-eabi- ARCH=arm modules -j8
 
@@ -38,12 +41,13 @@ $(PVRSGX_MODULE): $(KERNEL_UIMAGE) sgx/eurasia_km/INSTALL
 	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean && \
 	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 -j8
 
-$(COMPAT_WL12XX_MODULE): $(KERNEL_UIMAGE)
-	cd hardware/ti/wlan/mac80211/compat_wl12xx && \
+EXTERNAL_WIRELESS_DIR := hardware/ti/wlan/mac80211/compat_wl12xx
+EXTERNAL_WIRELESS_MODULES := $(addprefix $(EXTERNAL_WIRELESS_DIR),$(WIFI_DRIVERS))
+$(EXTERNAL_WIRELESS_MODULES): $(KERNEL_DIR)/.config
+	cd $(EXTERNAL_WIRELESS_DIR) && \
 	export KERNEL_DIR=$(abspath $(KERNEL_DIR)) && \
 	export KLIB=$(abspath $(KERNEL_DIR)) && \
 	export KLIB_BUILD=$(abspath $(KERNEL_DIR)) && \
-	make ARCH=arm CROSS_COMPILE=arm-eabi- clean && \
 	make ARCH=arm CROSS_COMPILE=arm-eabi- -j8
 
 
