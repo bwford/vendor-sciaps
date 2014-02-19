@@ -1,10 +1,14 @@
-.PHONY: kernel cleankernel kernelconfig
+.PHONY: kernel cleankernel kernelconfig kernelmodules
 
-KERNEL_DIR := kernel
 KERNEL_UIMAGE := $(KERNEL_DIR)/arch/arm/boot/uImage
 PVRSGX_MODULE := out/target/product/$(TARGET_DEVICE)/target/kbuild/pvrsrvkm_sgx540_120.ko
-COMPAT_WL12XX_MODULE := hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko
-KERNEL_MODULES := $(PVRSGX_MODULE) $(COMPAT_WL12XX_MODULE)
+WIRELESS_MODULES := $(addprefix $(KERNEL_DIR), \
+	/net/wireless/cfg80211.ko \
+	/net/wireless/mac80211.ko \
+	/drivers/net/wireless/wl12xx/wl12xx.ko \
+	/drivers/net/wireless/wl12xx/wl12xx_sdio.ko \
+	)
+KERNEL_MODULES := $(PVRSGX_MODULE)
 
 kernelconfig:
 	cd $(KERNEL_DIR) && \
@@ -17,6 +21,10 @@ $(KERNEL_DIR)/.config:
 $(KERNEL_UIMAGE): $(KERNEL_DIR)/.config
 	cd $(KERNEL_DIR) && \
 	make CROSS_COMPILE=arm-eabi- ARCH=arm uImage -j8
+
+kernelmodules $(WIRELESS_MODULES): $(KERNEL_DIR)/.config
+	cd $(KERNEL_DIR) && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm modules -j8
 
 sgx/eurasia_km/INSTALL:
 	mkdir -p sgx

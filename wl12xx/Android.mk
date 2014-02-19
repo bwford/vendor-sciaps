@@ -1,0 +1,50 @@
+LOCAL_PATH := $(my-dir)
+TARGET_OUT_WLAN_FW := $(TARGET_OUT_ETC)/firmware/ti-connectivity
+
+# WLAN FW file for wl1271
+include $(CLEAR_VARS)
+LOCAL_MODULE := wl1271-fw-2.bin
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_WLAN_FW)
+LOCAL_SRC_FILES := $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_PREBUILT)
+
+# WLAN NVS file for wl1271
+include $(CLEAR_VARS)
+LOCAL_MODULE := wl1271-nvs.bin
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT_WLAN_FW)
+LOCAL_SRC_FILES := $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_PREBUILT)
+
+#kernel drivers
+include $(CLEAR_VARS)
+LOCAL_MODULE := mac80211.ko
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
+LOCAL_SRC_FILES := ../../../$(KERNEL_DIR)/net/mac80211/mac80211.ko
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := cfg80211.ko
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
+LOCAL_SRC_FILES := ../../../$(KERNEL_DIR)/net/wireless/cfg80211.ko
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := wl12xx.ko
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
+LOCAL_SRC_FILES := ../../../$(KERNEL_DIR)/drivers/net/wireless/wl12xx/wl12xx.ko
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := wl12xx_sdio.ko
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
+LOCAL_SRC_FILES := ../../../$(KERNEL_DIR)/drivers/net/wireless/wl12xx/wl12xx_sdio.ko
+include $(BUILD_PREBUILT)
+
