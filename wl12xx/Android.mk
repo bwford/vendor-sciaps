@@ -1,23 +1,20 @@
 LOCAL_PATH := $(my-dir)
 TARGET_OUT_WLAN_FW := $(TARGET_OUT_ETC)/firmware/ti-connectivity
 
-# WLAN FW file for wl1271
-include $(CLEAR_VARS)
-LOCAL_MODULE := wl1271-fw-2.bin
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT_WLAN_FW)
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
-LOCAL_MODULE_TAGS := optional
-include $(BUILD_PREBUILT)
+FIRMWARE_FILES := $(notdir $(shell find $(LOCAL_PATH) -iname *.bin))
 
-# WLAN NVS file for wl1271
+define prebuilt-firmware
 include $(CLEAR_VARS)
-LOCAL_MODULE := wl1271-nvs.bin
+LOCAL_MODULE := $(1)
 LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT_WLAN_FW)
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
+LOCAL_MODULE_PATH := $$(TARGET_OUT_WLAN_FW)
+LOCAL_SRC_FILES := $$(LOCAL_MODULE)
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_PREBUILT)
+endef
+
+$(foreach d,$(FIRMWARE_FILES),$(eval $(call prebuilt-firmware,$d)))
+
 
 #WIRELESS_DIR := hardware/ti/wlan/mac80211/compat_wl12xx
 WIRELESS_DIR := $(KERNEL_DIR)
