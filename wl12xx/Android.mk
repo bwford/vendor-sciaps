@@ -1,4 +1,4 @@
-LOCAL_PATH := $(my-dir)
+LOCAL_PATH := $(call my-dir)
 TARGET_OUT_WLAN_FW := $(TARGET_OUT_ETC)/firmware/ti-connectivity
 
 FIRMWARE_FILES := $(notdir $(shell find $(LOCAL_PATH) -iname *.bin))
@@ -16,8 +16,8 @@ endef
 $(foreach d,$(FIRMWARE_FILES),$(eval $(call prebuilt-firmware,$d)))
 
 
-#WIRELESS_DIR := hardware/ti/wlan/mac80211/compat_wl12xx
-WIRELESS_DIR := $(KERNEL_DIR)
+WIRELESS_DIR := hardware/ti/wlan/mac80211/compat_wl12xx
+#WIRELESS_DIR := $(KERNEL_DIR)
 
 #kernel drivers
 include $(CLEAR_VARS)
