@@ -41,6 +41,16 @@ $(PVRSGX_MODULE): $(KERNEL_UIMAGE) sgx/eurasia_km/INSTALL
 	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean && \
 	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 -j8
 
+include $(CLEAR_VARS)
+LOCAL_MODULE := pvrsrvkm_sgx540_120.ko
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
+LOCAL_SRC_FILES := $(PVRSGX_MODULE)
+include $(BUILD_SYSTEM)/base_rules.mk
+$(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
+	$(transform-prebuilt-to-target)
+
 EXTERNAL_WIRELESS_DIR := hardware/ti/wlan/mac80211/compat_wl12xx
 EXTERNAL_WIRELESS_MODULES := $(addprefix $(EXTERNAL_WIRELESS_DIR),$(WIFI_DRIVERS))
 $(EXTERNAL_WIRELESS_MODULES): $(KERNEL_DIR)/.config

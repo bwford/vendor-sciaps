@@ -19,32 +19,46 @@ $(foreach d,$(FIRMWARE_FILES),$(eval $(call prebuilt-firmware,$d)))
 WIRELESS_DIR := hardware/ti/wlan/mac80211/compat_wl12xx
 #WIRELESS_DIR := $(KERNEL_DIR)
 
-#kernel drivers
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := mac80211.ko
+LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
-LOCAL_SRC_FILES := ../../../$(WIRELESS_DIR)/net/mac80211/mac80211.ko
-include $(BUILD_PREBUILT)
+LOCAL_SRC_FILES := $(WIRELESS_DIR)/net/mac80211/mac80211.ko
+include $(BUILD_SYSTEM)/base_rules.mk
+$(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
+	$(transform-prebuilt-to-target)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := cfg80211.ko
+LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
-LOCAL_SRC_FILES := ../../../$(WIRELESS_DIR)/net/wireless/cfg80211.ko
-include $(BUILD_PREBUILT)
+LOCAL_SRC_FILES := $(WIRELESS_DIR)/net/wireless/cfg80211.ko
+include $(BUILD_SYSTEM)/base_rules.mk
+$(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
+	$(transform-prebuilt-to-target)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wl12xx.ko
+LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
-LOCAL_SRC_FILES := ../../../$(WIRELESS_DIR)/drivers/net/wireless/wl12xx/wl12xx.ko
-include $(BUILD_PREBUILT)
+LOCAL_SRC_FILES := $(WIRELESS_DIR)/drivers/net/wireless/wl12xx/wl12xx.ko
+include $(BUILD_SYSTEM)/base_rules.mk
+$(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
+	$(transform-prebuilt-to-target)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wl12xx_sdio.ko
+LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
-LOCAL_SRC_FILES := ../../../$(WIRELESS_DIR)/drivers/net/wireless/wl12xx/wl12xx_sdio.ko
-include $(BUILD_PREBUILT)
+LOCAL_SRC_FILES := $(WIRELESS_DIR)/drivers/net/wireless/wl12xx/wl12xx_sdio.ko
+include $(BUILD_SYSTEM)/base_rules.mk
+$(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
+	$(transform-prebuilt-to-target)
+
+
 

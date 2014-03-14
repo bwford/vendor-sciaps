@@ -11,7 +11,6 @@ $(STAGING_DIR_TS):
 	cp -r out/target/product/$(TARGET_DEVICE)/root/* $(STAGING_DIR)
 	cp -r out/target/product/$(TARGET_DEVICE)/system $(STAGING_DIR)
 	cp -r out/target/product/$(TARGET_DEVICE)/data $(STAGING_DIR)
-	cp out/target/product/$(TARGET_DEVICE)/target/kbuild/pvrsrvkm_sgx540_120.ko $(STAGING_DIR)/system/lib/modules
 	touch $(STAGING_DIR_TS)
 
 $(ROOTFS_TAR): $(STAGING_DIR_TS)
