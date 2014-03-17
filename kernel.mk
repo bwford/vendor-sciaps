@@ -5,7 +5,7 @@ PVRSGX_MODULE := out/target/product/$(TARGET_DEVICE)/target/kbuild/pvrsrvkm_sgx5
 
 WIFI_DRIVERS := \
 	/net/wireless/cfg80211.ko \
-	/net/wireless/mac80211.ko \
+	/net/mac80211/mac80211.ko \
 	/drivers/net/wireless/wl12xx/wl12xx.ko \
 	/drivers/net/wireless/wl12xx/wl12xx_sdio.ko
 
