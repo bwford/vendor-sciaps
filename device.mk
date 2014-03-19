@@ -2,6 +2,7 @@
 
 PRODUCT_PACKAGES += \
 	busybox \
+	playxsvf \
 	LIBSHome \
 	LIBSAlloyMatch \
 	LIBSSettings \
@@ -17,3 +18,5 @@ PRODUCT_PACKAGES += \
 	cfg80211.ko \
 	wl12xx.ko \
 	wl12xx_sdio.ko \
+
+
