@@ -14,6 +14,7 @@ PRODUCT_PACKAGES += \
 
 #Wifi Drivers
 PRODUCT_PACKAGES += \
+	calibrator \
 	mac80211.ko \
 	cfg80211.ko \
 	wl12xx.ko \
