@@ -58,7 +58,7 @@ $(EXTERNAL_WIRELESS_MODULES): $(KERNEL_DIR)/.config
 	export KERNEL_DIR=$(abspath $(KERNEL_DIR)) && \
 	export KLIB=$(abspath $(KERNEL_DIR)) && \
 	export KLIB_BUILD=$(abspath $(KERNEL_DIR)) && \
-	make ARCH=arm CROSS_COMPILE=arm-eabi- -j8
+	make ARCH=arm CROSS_COMPILE=arm-eabi-
 
 
 kernel: $(KERNEL_UIMAGE) $(KERNEL_MODULES)
