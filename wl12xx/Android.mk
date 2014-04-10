@@ -1,4 +1,6 @@
 LOCAL_PATH := $(call my-dir)
+include $(call all-makefiles-under, $(LOCAL_PATH))
+
 TARGET_OUT_WLAN_FW := $(TARGET_OUT_ETC)/firmware/ti-connectivity
 
 FIRMWARE_FILES := $(notdir $(shell find $(LOCAL_PATH) -iname *.bin))
