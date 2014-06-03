@@ -1,5 +1,5 @@
 LOCAL_PATH := $(call my-dir)
-include $(call all-makefiles-under, $(LOCAL_PATH))
+
 
 TARGET_OUT_WLAN_FW := $(TARGET_OUT_ETC)/firmware/ti-connectivity
 
@@ -64,3 +64,4 @@ $(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
 
 
 
+include $(call all-makefiles-under, $(LOCAL_PATH))

@@ -7,7 +7,7 @@ PRODUCT_PACKAGES += \
 	wl127x-fw-4-mr.bin \
 	wl127x-fw-4-plt.bin \
 	wl127x-fw-4-sr.bin \
-	wl1271-nvs.bin \
+	wl1271-nvs.bin 
 
 #wifi drivers
 PRODUCT_PACKAGES += \
