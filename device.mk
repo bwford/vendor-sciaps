@@ -18,6 +18,6 @@ PRODUCT_PACKAGES += \
 	mac80211.ko \
 	cfg80211.ko \
 	wl12xx.ko \
-	wl12xx_sdio.ko \
+	wl12xx_sdio.ko
 
 
