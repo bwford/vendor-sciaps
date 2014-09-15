@@ -26,7 +26,7 @@ endef
 LOCAL_PATH := $(call my-dir)
 
 $(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZAlloyMatch/SciapsLIBS/build/outputs/apk/SciapsLIBS-libz500-hardware-release.apk, \
+	$(LOCAL_PATH)/LIBZAlloyMatch/SciapsLIBS/build/outputs/apk/SciapsLIBS-libz100-hardware-release.apk, \
 	$(LOCAL_PATH)/LIBZAlloyMatch, \
 	LIBSAlloyMatch \
 	))
