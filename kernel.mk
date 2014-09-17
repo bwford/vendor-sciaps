@@ -51,14 +51,19 @@ include $(BUILD_SYSTEM)/base_rules.mk
 $(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
 	$(transform-prebuilt-to-target)
 
+
+.PHONY: wirelesskm
 EXTERNAL_WIRELESS_DIR := hardware/ti/wlan/mac80211/compat_wl12xx
 EXTERNAL_WIRELESS_MODULES := $(addprefix $(EXTERNAL_WIRELESS_DIR),$(WIFI_DRIVERS))
-$(EXTERNAL_WIRELESS_MODULES): $(KERNEL_DIR)/.config
+
+wirelesskm: $(KERNEL_DIR)/.config
 	cd $(EXTERNAL_WIRELESS_DIR) && \
 	export KERNEL_DIR=$(abspath $(KERNEL_DIR)) && \
 	export KLIB=$(abspath $(KERNEL_DIR)) && \
 	export KLIB_BUILD=$(abspath $(KERNEL_DIR)) && \
 	make ARCH=arm CROSS_COMPILE=arm-eabi-
+
+$(EXTERNAL_WIRELESS_MODULES): wirelesskm
 
 
 kernel: $(KERNEL_UIMAGE) $(KERNEL_MODULES)

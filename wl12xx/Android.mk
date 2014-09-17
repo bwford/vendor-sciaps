@@ -12,7 +12,8 @@ LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $$(TARGET_OUT_WLAN_FW)
 LOCAL_SRC_FILES := $$(LOCAL_MODULE)
 LOCAL_MODULE_TAGS := optional
-include $(BUILD_PREBUILT)
+include $$(BUILD_PREBUILT)
+
 endef
 
 $(foreach d,$(FIRMWARE_FILES),$(eval $(call prebuilt-firmware,$d)))
