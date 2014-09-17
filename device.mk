@@ -4,7 +4,7 @@ PRODUCT_PACKAGES += \
 	busybox \
 	playxsvf \
 	LIBSHome \
-	LIBSAlloyMatch \
+	LIBZAlloyMatch \
 	LIBSSettings \
 	CMFileManager
 
