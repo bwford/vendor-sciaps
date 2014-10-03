@@ -31,4 +31,9 @@ $(eval $(call gradlebuild,\
 	LIBZAlloyMatch \
 	))
 
+$(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/Updater/app/build/outputs/apk/app-release.apk, \
+	$(LOCAL_PATH)/Updater, \
+	LIBZUpdater \
+	))
 
