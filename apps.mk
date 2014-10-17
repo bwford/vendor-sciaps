@@ -37,3 +37,8 @@ $(eval $(call gradlebuild,\
 	LIBZUpdater \
 	))
 
+$(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libz100-release.apk, \
+	$(LOCAL_PATH)/LIBZHome, \
+	LIBZHome \
+	))
