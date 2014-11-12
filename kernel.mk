@@ -73,3 +73,39 @@ kernel: $(KERNEL_UIMAGE) $(KERNEL_MODULES)
 cleankernel:
 	rm -f $(KERNEL_UIMAGE) $(KERNEL_MODULES)
 	cd $(KERNEL_DIR) && make CROSS_COMPILE=arm-eabi- ARCH=arm clean
+
+
+############### BareBox MLO ###############
+BAREBOX_MLO_CONFIG := barebox/barebox_mlo-2013.06.0/.config
+
+$(BAREBOX_MLO_CONFIG):
+	cd barebox/barebox_mlo-2013.06.0 && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5012_mlo_defconfig
+
+barebox/barebox_mlo-2013.06.0/MLO: $(BAREBOX_MLO_CONFIG)
+	cd barebox/barebox_mlo-2013.06.0 && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm
+
+.PHONY: barebox_mloclean
+
+barebox_mloclean:
+	cd barebox/barebox_mlo-2013.06.0 && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm clean
+
+
+############### BareBox ####################
+BAREBOX_CONFIG := barebox/barebox-2013.06.0/.config
+
+$(BAREBOX_CONFIG):
+	cd barebox/barebox-2013.06.0 && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5012_defconfig
+
+barebox/barebox-2013.06.0/barebox.bin: $(BAREBOX_CONFIG)
+	cd barebox/barebox-2013.06.0 && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm
+
+.PHONY: bareboxclean
+
+bareboxclean:
+	cd barebox/barebox-2013.06.0 && \
+	make CROSS_COMPILE=arm-eabi- ARCH=arm clean
