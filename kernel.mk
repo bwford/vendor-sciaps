@@ -41,8 +41,8 @@ sgx/eurasia_km/INSTALL:
 $(PVRSGX_MODULE): $(KERNEL_UIMAGE) sgx/eurasia_km/INSTALL
 	cd sgx/eurasia_km/eurasiacon/build/linux2/omap4430_android && \
 	export KERNELDIR=$(abspath $(KERNEL_DIR)) && \
-	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean && \
-	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 -j8
+	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.1 clean && \
+	make ARCH=arm CROSS_COMPILE=arm-eabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.1 -j8
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := pvrsrvkm_sgx540_120.ko
