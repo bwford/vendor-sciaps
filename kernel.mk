@@ -2,6 +2,7 @@
 
 KERNEL_UIMAGE := $(KERNEL_DIR)/arch/arm/boot/uImage
 PVRSGX_MODULE := out/target/product/$(TARGET_DEVICE)/target/kbuild/pvrsrvkm_sgx540_120.ko
+KSP5012_VERSIONCHECK_MODULE := kernel/arch/arm/mach-omap2/board-omap4ksp5012-version.ko
 
 WIFI_DRIVERS := \
 	/net/wireless/cfg80211.ko \
@@ -31,6 +32,7 @@ kernelmodules: $(KERNEL_DIR)/.config
 
 $(KERNEL_WIRELESS_MODULES): kernelmodules
 
+$(KSP5012_VERSIONCHECK_MODULE): kernelmodules
 
 sgx/eurasia_km/INSTALL:
 	mkdir -p sgx
@@ -50,6 +52,16 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
 LOCAL_SRC_FILES := $(PVRSGX_MODULE)
+include $(BUILD_SYSTEM)/base_rules.mk
+$(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
+	$(transform-prebuilt-to-target)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := board-omap4ksp5012-version.ko
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
+LOCAL_SRC_FILES := $(KSP5012_VERSIONCHECK_MODULE)
 include $(BUILD_SYSTEM)/base_rules.mk
 $(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
 	$(transform-prebuilt-to-target)
