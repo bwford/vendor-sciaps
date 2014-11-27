@@ -2,6 +2,7 @@
 
 KERNEL_UIMAGE := $(KERNEL_DIR)/arch/arm/boot/uImage
 
+$(info kerneldir: $(KERNEL_DIR))
 
 WIFI_DRIVERS := \
 	/net/wireless/cfg80211.ko \
@@ -62,11 +63,11 @@ EXTERNAL_WIRELESS_MODULES := $(addprefix $(EXTERNAL_WIRELESS_DIR),$(WIFI_DRIVERS
 EXTERN_WIFI_MAKE := out/target/product/$(TARGET_DEVICE)/_externwifi
 
 $(EXTERN_WIFI_MAKE): $(KERNEL_UIMAGE)
-	cd $(EXTERNAL_WIRELESS_DIR) && \
 	export KERNEL_DIR=$(abspath $(KERNEL_DIR)) && \
 	export KLIB=$(abspath $(KERNEL_DIR)) && \
 	export KLIB_BUILD=$(abspath $(KERNEL_DIR)) && \
-	make ARCH=arm CROSS_COMPILE=arm-eabi-
+	$(MAKE) -C $(EXTERNAL_WIRELESS_DIR) ARCH=arm CROSS_COMPILE=arm-eabi- && \
+	mkdir -p $(dir $(EXTERN_WIFI_MAKE)) && \
 	touch $(EXTERN_WIFI_MAKE)
 
 $(EXTERNAL_WIRELESS_MODULES): $(EXTERN_WIFI_MAKE)
