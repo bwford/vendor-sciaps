@@ -42,3 +42,10 @@ $(eval $(call gradlebuild,\
 	$(LOCAL_PATH)/LIBZHome, \
 	LIBZHome \
 	))
+
+$(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/LIBZAlloySpec/spec/build/outputs/apk/spec-release.apk, \
+	$(LOCAL_PATH)/LIBZAlloySpec, \
+	LIBZAlloySpec \
+	))
+
