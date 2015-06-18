@@ -161,7 +161,9 @@ barebox/barebox_mlo-2013.06.0/MLO: $(BAREBOX_MLO_CONFIG)
 
 barebox_mloclean:
 	cd barebox/barebox_mlo-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm clean
+	make CROSS_COMPILE=arm-eabi- ARCH=arm clean && \
+	rm -f MLO && \
+	rm -f .config
 
 
 ############### BareBox #####################################################################################
@@ -179,4 +181,6 @@ barebox/barebox-2013.06.0/barebox.bin: $(BAREBOX_CONFIG)
 
 bareboxclean:
 	cd barebox/barebox-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm clean
+	make CROSS_COMPILE=arm-eabi- ARCH=arm clean && \
+	rm -f barebox.bin && \
+	rm -f .config

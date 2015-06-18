@@ -5,6 +5,8 @@ define gradlebuild
 
 $(1):
 	cd $(2) && \
+	git submodule foreach 'git fetch' && \
+	git submodule foreach 'git clean -d -x -f' && \
 	git submodule init && \
 	git submodule update && \
 	./gradlew clean assemble
@@ -48,4 +50,3 @@ $(eval $(call gradlebuild,\
 	$(LOCAL_PATH)/LIBZAlloySpec, \
 	LIBZAlloySpec \
 	))
-
