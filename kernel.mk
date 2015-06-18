@@ -146,23 +146,6 @@ $(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
 	$(transform-prebuilt-to-target)
 
 
-############### BareBox MLO ##################################################################################
-BAREBOX_MLO_CONFIG := barebox/barebox_mlo-2013.06.0/.config
-
-$(BAREBOX_MLO_CONFIG):
-	cd barebox/barebox_mlo-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5012_mlo_defconfig
-
-barebox/barebox_mlo-2013.06.0/MLO: $(BAREBOX_MLO_CONFIG)
-	cd barebox/barebox_mlo-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm
-
-.PHONY: barebox_mloclean
-
-cleankernel:
-	rm -f $(KERNEL_UIMAGE) $(KERNEL_MODULES)
-	cd $(KERNEL_DIR) && make CROSS_COMPILE=arm-eabi- ARCH=arm clean
-
 
 ############### BareBox MLO ###############
 BAREBOX_MLO_CONFIG := barebox/barebox_mlo-2013.06.0/.config
@@ -179,7 +162,9 @@ barebox/barebox_mlo-2013.06.0/MLO: $(BAREBOX_MLO_CONFIG)
 
 barebox_mloclean:
 	cd barebox/barebox_mlo-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm clean
+	make CROSS_COMPILE=arm-eabi- ARCH=arm clean && \
+	rm -f MLO && \
+	rm -f .config
 
 
 ############### BareBox #####################################################################################
@@ -197,4 +182,6 @@ barebox/barebox-2013.06.0/barebox.bin: $(BAREBOX_CONFIG)
 
 bareboxclean:
 	cd barebox/barebox-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm clean
+	make CROSS_COMPILE=arm-eabi- ARCH=arm clean && \
+	rm -f barebox.bin && \
+	rm -f .config
