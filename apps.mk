@@ -50,3 +50,9 @@ $(eval $(call gradlebuild,\
 	$(LOCAL_PATH)/LIBZAlloySpec, \
 	LIBZAlloySpec \
 	))
+
+$(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/LIBZFactoryMode/app/build/outputs/apk/app-libz500-release.apk, \
+	$(LOCAL_PATH)/LIBZFactoryMode, \
+	LIBZFactoryMode \
+	))
