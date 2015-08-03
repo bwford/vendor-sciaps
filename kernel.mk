@@ -20,7 +20,7 @@ kernelconfig:
 
 $(KERNEL_DIR)/.config:
 	cd $(KERNEL_DIR) && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5012_defconfig
+	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5014_defconfig
 
 $(KERNEL_UIMAGE): $(KERNEL_DIR)/.config
 	cd $(KERNEL_DIR) && \
@@ -38,19 +38,19 @@ cleankernel:
 	cd $(KERNEL_DIR) && make CROSS_COMPILE=arm-eabi- ARCH=arm clean
 
 
-############### KSP5012 version check ########################################################
+############### KSP5014 version check ########################################################
 
-KSP5012_VERSIONCHECK_MODULE := kernel/arch/arm/mach-omap2/board-omap4ksp5012-version.ko
+KSP5014_VERSIONCHECK_MODULE := kernel/arch/arm/mach-omap2/board-44xx-ksp5014-version.ko
 
-$(KSP5012_VERSIONCHECK_MODULE): kernelmodules
+$(KSP5014_VERSIONCHECK_MODULE): kernelmodules
 
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := board-omap4ksp5012-version.ko
+LOCAL_MODULE := board-44xx-ksp5014-version.ko
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/modules
-LOCAL_SRC_FILES := $(KSP5012_VERSIONCHECK_MODULE)
+LOCAL_SRC_FILES := $(KSP5014_VERSIONCHECK_MODULE)
 include $(BUILD_SYSTEM)/base_rules.mk
 $(LOCAL_BUILT_MODULE) : $(LOCAL_SRC_FILES) | $(ACP)
 	$(transform-prebuilt-to-target)
@@ -151,7 +151,7 @@ BAREBOX_MLO_CONFIG := barebox/barebox_mlo-2013.06.0/.config
 
 $(BAREBOX_MLO_CONFIG):
 	cd barebox/barebox_mlo-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5012_mlo_defconfig
+	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5014_mlo_defconfig
 
 barebox/barebox_mlo-2013.06.0/MLO: $(BAREBOX_MLO_CONFIG)
 	cd barebox/barebox_mlo-2013.06.0 && \
@@ -171,7 +171,7 @@ BAREBOX_CONFIG := barebox/barebox-2013.06.0/.config
 
 $(BAREBOX_CONFIG):
 	cd barebox/barebox-2013.06.0 && \
-	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5012_defconfig
+	make CROSS_COMPILE=arm-eabi- ARCH=arm ksp5014_defconfig
 
 barebox/barebox-2013.06.0/barebox.bin: $(BAREBOX_CONFIG)
 	cd barebox/barebox-2013.06.0 && \
